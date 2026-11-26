@@ -12,6 +12,8 @@ PORT=4000 npm start
 ## Ejecutar en Kubernetes
 
 ```bash
-kubectl create deployment todo-app-dep --image=devscastellanos/todo-app:1.2
+kubectl apply -f manifests/deployment.yaml
 kubectl logs deployment/todo-app-dep
 ```
+
+El puerto se define con la variable `PORT` en `manifests/deployment.yaml`.
