@@ -25,3 +25,17 @@ El puerto se define con la variable `PORT` en `manifests/deployment.yaml`.
 kubectl port-forward deployment/todo-app-dep 3003:3000
 # abrir http://localhost:3003
 ```
+
+## Imagen aleatoria
+
+La app muestra una imagen de https://picsum.photos cacheada en un PersistentVolume (`todo-claim`).
+La imagen se renueva cada 10 minutos (la vieja se sirve una vez más tras expirar).
+`GET /shutdown` tumba el contenedor para probar que la imagen persiste.
+
+Requiere:
+
+```bash
+docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube-todo
+docker exec k3d-k3s-default-agent-0 chmod 777 /tmp/kube-todo
+kubectl apply -f ../volumes/
+```
