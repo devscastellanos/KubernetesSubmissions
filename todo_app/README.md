@@ -11,12 +11,10 @@ PORT=4000 npm start
 
 ## Ejecutar en Kubernetes
 
-El clúster debe crearse con los puertos publicados:
-
 ```bash
 k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 kubectl apply -f manifests/
-# abrir http://localhost:8082
+# abrir http://localhost:8081
 ```
 
 El puerto se define con la variable `PORT` en `manifests/deployment.yaml`.
