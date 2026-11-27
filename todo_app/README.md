@@ -17,3 +17,10 @@ kubectl logs deployment/todo-app-dep
 ```
 
 El puerto se define con la variable `PORT` en `manifests/deployment.yaml`.
+
+## Probar en el clúster
+
+```bash
+kubectl port-forward deployment/todo-app-dep 3003:3000
+# abrir http://localhost:3003
+```
