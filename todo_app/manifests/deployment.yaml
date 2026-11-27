@@ -18,7 +18,7 @@ spec:
             claimName: todo-claim
       containers:
         - name: todo-app
-          image: devscastellanos/todo-app:1.12
+          image: devscastellanos/todo-app:1.13
           env:
             - name: PORT
               value: "3000"
