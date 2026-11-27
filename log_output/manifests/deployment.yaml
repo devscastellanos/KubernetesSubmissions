@@ -13,19 +13,20 @@ spec:
         app: log-output
     spec:
       volumes:
-        - name: shared-logs
-          emptyDir: {}
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: shared-claim
       containers:
         - name: log-writer
           image: devscastellanos/log-output-writer:1.10
           volumeMounts:
-            - name: shared-logs
+            - name: shared-data
               mountPath: /usr/src/app/files
         - name: log-reader
-          image: devscastellanos/log-output-reader:1.10
+          image: devscastellanos/log-output-reader:1.11
           env:
             - name: PORT
               value: "3000"
           volumeMounts:
-            - name: shared-logs
+            - name: shared-data
               mountPath: /usr/src/app/files

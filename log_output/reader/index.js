@@ -4,13 +4,22 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const filePath = path.join(__dirname, "files", "log.txt");
+const dir = path.join(__dirname, "files");
+
+const readFile = (name, fallback) => {
+  try {
+    return fs.readFileSync(path.join(dir, name), "utf8");
+  } catch {
+    return fallback;
+  }
+};
 
 app.get("/", (req, res) => {
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) return res.status(503).send("Log file not available yet");
-    res.type("text/plain").send(data);
-  });
+  const logLines = readFile("log.txt", "").trim().split("\n");
+  const lastLine = logLines[logLines.length - 1] || "No logs yet";
+  const pongs = readFile("pingpong.txt", "0").trim();
+
+  res.type("text/plain").send(`${lastLine}.\nPing / Pongs: ${pongs}`);
 });
 
 app.listen(PORT, () => {
